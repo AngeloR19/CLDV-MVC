@@ -1,0 +1,17 @@
+﻿@model CLDVPOE25.Models.Booking
+
+@{
+    ViewData["Title"] = "Feedback";
+}
+
+<h1>Provide Feedback</h1>
+<form asp-action="Duration" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Feedback" class="control-label">Feedback</label>
+        <textarea asp-for="Feedback" class="form-control" rows="4"></textarea>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Submit Feedback" class="btn btn-primary" />
+    </div>
+</form>

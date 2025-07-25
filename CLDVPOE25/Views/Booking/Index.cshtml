@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CLDVPOE25.Models.Booking>
+
+@{
+    ViewData["Title"] = "Booking Page";
+    var eventTypes = ViewBag.EventTypes as List<CLDVPOE25.Models.EventType>;
+}
+
+<h1>Booking Page</h1>
+
+<form method="get" asp-action="Index">
+    <input type="text" name="searchQuery" placeholder="Search by Booking ID or Event Name" />
+
+    <select name="eventTypeId">
+        <option value="">All Event Types</option>
+        @foreach (var et in eventTypes)
+        {
+            <option value="@et.Id">@et.Name</option>
+        }
+    </select>
+
+    <input type="date" name="startDate" />
+    <input type="date" name="endDate" />
+
+    <select name="venueAvailability">
+        <option value="">Any Venue Availability</option>
+        <option value="true">Available</option>
+        <option value="false">Not Available</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.EventItem)</th>
+            <th>@Html.DisplayNameFor(model => model.Venue)</th>
+            <th>@Html.DisplayNameFor(model => model.DateOfEvent)</th>
+            <th>@Html.DisplayNameFor(model => model.Duration)</th>
+            <th>@Html.DisplayNameFor(model => model.Feedback)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.EventItem.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Venue.Name)</td>
+                <td>@item.DateOfEvent.ToString("yyyy-MM-dd")</td>
+                <td>@Html.DisplayFor(modelItem => item.Duration)</td>
+                <td>@Html.DisplayFor(modelItem => item.Feedback)</td>
+                <td>
+                    <a asp-action="Duration" asp-route-id="@item.Id">Edit Duration</a> |
+                    <a asp-action="Feedback" asp-route-id="@item.Id">Feedback</a> |
+                    <a asp-action="ManageBooking" asp-route-id="@item.Id">Manage</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

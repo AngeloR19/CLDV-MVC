@@ -1,0 +1,81 @@
+﻿@model CLDVPOE25.Models.Venue
+
+<h1>Create</h1>
+
+<h4>Venue</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Capacity" class="control-label"></label>
+                <input asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PricePerHour" class="control-label"></label>
+                <input asp-for="PricePerHour" class="form-control" />
+                <span asp-validation-for="PricePerHour" class="text-danger"></span>
+            </div>
+
+            <!-- Radio Buttons -->
+            <div class="form-group">
+                <label>Image Source:</label><br />
+                <input type="radio" name="ImageOption" value="upload" onchange="toggleImageInput()" checked /> Upload from Computer<br />
+                <input type="radio" name="ImageOption" value="url" onchange="toggleImageInput()" /> Use Image URL
+            </div>
+
+            <!-- Upload input -->
+            <div class="form-group" id="uploadInput">
+                <label>Upload Image:</label>
+                <input type="file" name="Image" class="form-control" />
+            </div>
+
+            <!-- URL input -->
+            <div class="form-group" id="urlInput" style="display:none;">
+                <label asp-for="ImageUrl" class="control-label">Image URL</label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<!-- Scripts Section -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        function toggleImageInput() {
+            var selected = document.querySelector('input[name="ImageOption"]:checked').value;
+            document.getElementById("uploadInput").style.display = selected === "upload" ? "block" : "none";
+            document.getElementById("urlInput").style.display = selected === "url" ? "block" : "none";
+        }
+    </script>
+}
+

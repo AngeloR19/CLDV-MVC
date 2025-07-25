@@ -1,0 +1,73 @@
+﻿@model CLDVPOE25.Models.EventItem
+
+@{
+    ViewData["Title"] = "Create Event";
+    var eventTypes = ViewBag.EventTypes as List<CLDVPOE25.Models.EventType>;
+    var venues = ViewBag.Venues as List<CLDVPOE25.Models.Venue>;
+}
+
+<h1>Create Event</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EventTypeId" class="control-label">Event Type</label>
+                <select asp-for="EventTypeId" class="form-control">
+                    <option value="">-- Select Event Type --</option>
+                    @foreach (var type in eventTypes)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="EventTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateOfEvent" class="control-label"></label>
+                <input asp-for="DateOfEvent" type="date" class="form-control" />
+                <span asp-validation-for="DateOfEvent" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ContactEmail" class="control-label"></label>
+                <input asp-for="ContactEmail" type="email" class="form-control" />
+                <span asp-validation-for="ContactEmail" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="VenueId" class="control-label">Select Venue</label>
+                <select asp-for="VenueId" class="form-control">
+                    <option value="">-- Select Venue --</option>
+                    @foreach (var venue in venues)
+                    {
+                        <option value="@venue.Id">@venue.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="VenueId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create Event" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

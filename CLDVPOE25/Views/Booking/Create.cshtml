@@ -1,0 +1,66 @@
+﻿@model CLDVPOE25.Models.Booking
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EventItemId" class="control-label"></label>
+                <select asp-for="EventItemId" class="form-control">
+                    <option value="">-- Select Event --</option>
+                    @foreach (var eventItem in ViewBag.EventItem)
+                    {
+                        <option value="@eventItem.Id">@eventItem.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="VenueId" class="control-label"></label>
+                <select asp-for="VenueId" class="control-label">
+                    <option value="">-- Select Venue --</option>
+                    @foreach (var venue in ViewBag.Venue)
+                    {
+                        <option value="@venue.Id">@venue.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfEvent" class="control-label"></label>
+                <input asp-for="DateOfEvent" class="form-control" type="date" />
+                <span asp-validation-for="DateOfEvent" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Feedback" class="control-label"></label>
+                <input asp-for="Feedback" class="form-control" />
+                <span asp-validation-for="Feedback" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,17 @@
+﻿@model CLDVPOE25.Models.Booking
+
+@{
+    ViewData["Title"] = "Edit Duration";
+}
+
+<h1>Edit Duration</h1>
+<form asp-action="Duration" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Duration" class="control-label">Duration</label>
+        <input asp-for="Duration" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Duration" class="btn btn-primary" />
+    </div>
+</form>
